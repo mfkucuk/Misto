@@ -78,7 +78,7 @@ RETURN return RETURN;
 
 DONE return IF_END;
 
-Temperature	return TEMPERATURE_VAL;  
+Temperature return TEMPERATURE_VAL;  
 
 Humidity return HUMIDITY_VAL; 
 
