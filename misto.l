@@ -78,7 +78,7 @@ RETURN return RETURN;
 
 DONE return IF_END;
 
-Temperature return TEMPERATURE_VAL;  
+Temperature	return TEMPERATURE_VAL;  
 
 Humidity return HUMIDITY_VAL; 
 
@@ -99,6 +99,8 @@ SoundLevel return SOUNDLEVEL_VAL;
 {int}F|{int}.[0-9]+F { sscanf(yytext, "%f", &yylval.real); return FLOAT;}
 
 $.* return COMMENT;
+
+\n {extern int lineno; lineno++; return NEWLINE;}
 
 .;
 
