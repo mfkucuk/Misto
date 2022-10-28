@@ -1,0 +1,54 @@
+$ Switch 0 - connected to a led.
+$ Switch 1 - connected to a led.
+$ Switch 8 - connected to a cooler.
+$ Switch 9 - connected to a heater.
+
+$ Switches 2-7 are irrelevant!
+
+VOID CheckHumidity(humidity) {
+    IF (humidity < 50) {
+        IF (humidity > 30) {
+            SWITCH 0 ON
+            SWITCH 1 ON
+        }
+        DONE
+    }
+    DONE
+}
+
+$ Connect to the weather forecase API.
+CONNECT "www.weatherforecast.com"
+
+$ Fetch the temperature and humidity from the sensor.
+temperature_from_sensor = SENSOR(Temperature)
+humidity_from_sensor = SENSOR(Humidity)
+
+$ Fetch the temperature and humidity from the API
+temperature_from_api = RECEIVE()
+humidity_from_api = RECEIVE()
+
+IF (temperature_from_api >= temperature_from_sensor) {
+    SWITCH 0 ON
+    SWITCH 9 ON
+
+    WHILE (temperature_from_api >= temperature_from_sensor) {
+        temperature_from_sensor = SENSOR(Temperature)
+    }
+
+    SWITCH 0 OFF
+    SWITCH 9 OFF
+}
+ELSE {
+    SWITCH 1 ON
+    SWITCH 8 ON
+
+    WHILE (temperature_from_api < temperature_from_sensor) {
+        temperature_from_sensor = SENSOR(Temperature)
+    }
+
+    SWITCH 1 OFF 
+    SWITCH 8 OFF
+}
+
+$ If humidity the sensor is reading between is 30-50, light both LEDs
+CALLV CheckHumidity(SENSOR(Humidity))
