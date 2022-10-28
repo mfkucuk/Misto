@@ -1,0 +1,34 @@
+$ Switch 0 - connected to green LED
+$ Switch 1 - connected to red LED
+$ Switch 2 - connected to alarm
+
+INT FetchRandomNumber() {
+	
+    $ Connect to Random Number Generator
+    CONNECT "www.randomnumbergenerator.com"
+
+    $ Fetch the number
+    RETURN RECEIVE("www.randomnumbergenerator.com")
+}
+
+INT SendNumber(answer) {
+    
+    $ Connect to Random Number Generator
+    CONNECT "www.randomnumbergenerator.com"
+
+    $ Send the answer
+    SEND "www.randomnumbergenerator.com", answer
+
+    $ If the guessed number is correct return 1, else return 0
+    RETURN RECEIVE("www.randomnumbergenerator.com")
+}
+
+random_number = CALLR FetchRandomNumber()
+
+IF (SendNumber(random_number) == 1) {
+    SWITCH 0 ON
+}
+ELSE {
+    SWITCH 1 ON
+    SWITCH 2 ON
+}

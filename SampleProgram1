@@ -10,9 +10,9 @@ VOID CheckHumidity(humidity) {
         IF (humidity > 30) {
             SWITCH 0 ON
             SWITCH 1 ON
-        }
+        } 
         DONE
-    }
+    } 
     DONE
 }
 
