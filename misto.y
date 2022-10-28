@@ -29,7 +29,7 @@ void_func_call: VOID_FUNC_CALL IDENT LP parameters RP | VOID_FUNC_CALL IDENT LP 
 return_func_call: RETURN_FUNC_CALL IDENT LP parameters RP | RETURN_FUNC_CALL IDENT LP RP
 or_expr: and_expr | or_expr LOGICAL_OR and_expr
 and_expr: logic_expr | and_expr LOGICAL_AND logic_expr
-if_stmt: IF LP or_expr RP LEFT_BRACES statements RIGHT_BRACES IF_END | IF LP or_expr RP LEFT_BRACES statements RIGHT_BRACES NEWLINE ELSE LEFT_BRACES statements RIGHT_BRACES
+if_stmt: IF LP or_expr RP LEFT_BRACES statements RIGHT_BRACES IF_END NEWLINE | IF LP or_expr RP LEFT_BRACES statements RIGHT_BRACES NEWLINE ELSE LEFT_BRACES statements RIGHT_BRACES
 while_stmt: WHILE LP or_expr RP LEFT_BRACES statements RIGHT_BRACES
 for_stmt: FOR LP assign COLUMN or_expr COLUMN assign RP LEFT_BRACES statements RIGHT_BRACES
 assign: IDENT ASSIGNMENT expr | IDENT ASSIGNMENT STRING
