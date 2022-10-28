@@ -15,7 +15,9 @@
 
 program: statements 
 statements: statement | statement statements 
-statement: ADD_OP
+statement: assign
+assign: IDENT ASSIGNMENT expr | IDENT ASSIGNMENT STRING
+expr: term |
 
 %%
 
