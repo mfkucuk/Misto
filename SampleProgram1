@@ -24,8 +24,8 @@ temperature_from_sensor = SENSOR(Temperature)
 humidity_from_sensor = SENSOR(Humidity)
 
 $ Fetch the temperature and humidity from the API
-temperature_from_api = RECEIVE()
-humidity_from_api = RECEIVE()
+temperature_from_api = RECEIVE("www.weatherforecast.com")
+humidity_from_api = RECEIVE("www.weatherforecast.com")
 
 IF (temperature_from_api >= temperature_from_sensor) {
     SWITCH 0 ON
