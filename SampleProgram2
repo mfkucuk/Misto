@@ -17,15 +17,15 @@ INT SendNumber(answer) {
     CONNECT "www.randomnumbergenerator.com"
 
     $ Send the answer
-    SEND "www.randomnumbergenerator.com", answer
+    SEND "www.randomnumbergenerator.com" answer
 
     $ If the guessed number is correct return 1, else return 0
     RETURN RECEIVE("www.randomnumbergenerator.com")
 }
 
-random_number = CALLR FetchRandomNumber()
+1random_number = CALLR FetchRandomNumber()
 
-IF (CALLR SendNumber(random_number) == 1) {
+IF (CALLR SendNumber(1random_number) == 1) {
     SWITCH 0 ON
 }
 ELSE {

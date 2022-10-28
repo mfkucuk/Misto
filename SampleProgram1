@@ -1,3 +1,4 @@
+$ SampleProgram1
 $ Switch 0 - connected to a led.
 $ Switch 1 - connected to a led.
 $ Switch 8 - connected to a cooler.
@@ -52,3 +53,88 @@ ELSE {
 
 $ If humidity the sensor is reading between is 30-50, light both LEDs
 CALLV CheckHumidity(SENSOR(Humidity))
+
+$ SampleProgram2
+$ Switch 0 - connected to green LED
+$ Switch 1 - connected to red LED
+$ Switch 2 - connected to alarm
+
+INT FetchRandomNumber() {
+	
+    $ Connect to Random Number Generator
+    CONNECT "www.randomnumbergenerator.com"
+
+    $ Fetch the number
+    RETURN RECEIVE("www.randomnumbergenerator.com")
+}
+
+INT SendNumber(answer) {
+    
+    $ Connect to Random Number Generator
+    CONNECT "www.randomnumbergenerator.com"
+
+    $ Send the answer
+    SEND "www.randomnumbergenerator.com" answer
+
+    $ If the guessed number is correct return 1, else return 0
+    RETURN RECEIVE("www.randomnumbergenerator.com")
+}
+
+1random_number = CALLR FetchRandomNumber()
+
+IF (CALLR SendNumber(1random_number) == 1) {
+    SWITCH 0 ON
+}
+ELSE {
+    SWITCH 1 ON
+    SWITCH 2 ON
+}
+
+$ SampleProgram3
+$ Switch 0 - connected to LED
+$ Switch 1 - connected to LED
+$ Switch 2 - connected to LED
+$ Switch 3 - connected to LED
+$ Switch 4 - connected to LED
+$ Switch 5 - connected to LED
+$ Switch 6 - connected to LED
+$ Switch 7 - connected to LED
+$ Switch 8 - connected to LED
+$ Switch 9 - connected to LED
+
+$ Calculate how many weeks have it ben since Jan. 1, 1970
+
+INT SecToMin(seconds) {
+    local_var_minutes = seconds / 60
+    RETURN local_var_minutes
+}
+
+INT MinToHour(minutes) {
+    local_var_hours = minutes / 60
+    RETURN local_var_hours
+}
+
+INT HourToDay(hours) {
+    local_var_days = hours / 24
+    RETURN local_var_days
+}
+
+INT DayToWeek(days) {
+    local_var_weeks = days / 7
+    RETURN local_var_weeks
+}
+
+$ First, get the seconds since Jan.1, 1970
+timer_in_seconds = TIMER()
+timer_in_minutes = CALLR SecToMin(timer_in_seconds)
+timer_in_hours = CALLR MinToHour(timer_in_minutes)
+timer_in_days = CALLR HourToDay(timer_in_hours)
+timer_in_weeks = DayToWeek(timer_in_days)
+
+
+FOR (i = 0: i < timer_in_weeks: i = i + 1) {
+    IF (i < 10) {
+        SWITCH i ON
+    }
+    DONE
+}

@@ -1,3 +1,4 @@
+$ SampleProgram3
 $ Switch 0 - connected to LED
 $ Switch 1 - connected to LED
 $ Switch 2 - connected to LED
@@ -33,9 +34,9 @@ INT DayToWeek(days) {
 
 $ First, get the seconds since Jan.1, 1970
 timer_in_seconds = TIMER()
-timer_in_minutes = SecToMin(timer_in_seconds)
-timer_in_hours = MinToHour(timer_in_minutes)
-timer_in_days = HourToDay(timer_in_hours)
+timer_in_minutes = CALLR SecToMin(timer_in_seconds)
+timer_in_hours = CALLR MinToHour(timer_in_minutes)
+timer_in_days = CALLR HourToDay(timer_in_hours)
 timer_in_weeks = DayToWeek(timer_in_days)
 
 

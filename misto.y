@@ -24,12 +24,12 @@ statements: /* empty */
                           }
 statement: assign | or_expr | comment | for_stmt | while_stmt | if_stmt | connect | send_value | switches | void_func_declr | void_func_call | return_func_declr | return_func_call
 void_func_declr: RETURN_TYPE IDENT LP parameters RP LEFT_BRACES statements RIGHT_BRACES | RETURN_TYPE IDENT LP RP LEFT_BRACES statements RIGHT_BRACES
-return_func_declr: RETURN_TYPE IDENT LP parameters RP LEFT_BRACES statements RETURN expr RIGHT_BRACES | RETURN_TYPE IDENT LP RP LEFT_BRACES statements RETURN expr RIGHT_BRACES | RETURN_TYPE IDENT LP parameters RP LEFT_BRACES statements RETURN STRING RIGHT_BRACES | RETURN_TYPE IDENT LP RP LEFT_BRACES statements RETURN STRING RIGHT_BRACES
+return_func_declr: RETURN_TYPE IDENT LP parameters RP LEFT_BRACES statements RETURN expr NEWLINE RIGHT_BRACES | RETURN_TYPE IDENT LP RP LEFT_BRACES statements RETURN expr NEWLINE RIGHT_BRACES | RETURN_TYPE IDENT LP parameters RP LEFT_BRACES statements RETURN STRING NEWLINE RIGHT_BRACES | RETURN_TYPE IDENT LP RP LEFT_BRACES statements RETURN STRING NEWLINE RIGHT_BRACES
 void_func_call: VOID_FUNC_CALL IDENT LP parameters RP | VOID_FUNC_CALL IDENT LP RP
 return_func_call: RETURN_FUNC_CALL IDENT LP parameters RP | RETURN_FUNC_CALL IDENT LP RP
 or_expr: and_expr | or_expr LOGICAL_OR and_expr
 and_expr: logic_expr | and_expr LOGICAL_AND logic_expr
-if_stmt: IF LP or_expr RP LEFT_BRACES statements RIGHT_BRACES NEWLINE IF_END | IF LP or_expr RP LEFT_BRACES statements RIGHT_BRACES NEWLINE ELSE LEFT_BRACES statements RIGHT_BRACES
+if_stmt: IF LP or_expr RP LEFT_BRACES statements RIGHT_BRACES NEWLINE IF_END | IF LP or_expr RP LEFT_BRACES statements RIGHT_BRACES NEWLINE ELSE LEFT_BRACES NEWLINE statements RIGHT_BRACES
 while_stmt: WHILE LP or_expr RP LEFT_BRACES statements RIGHT_BRACES
 for_stmt: FOR LP assign COLUMN or_expr COLUMN assign RP LEFT_BRACES statements RIGHT_BRACES
 assign: IDENT ASSIGNMENT expr | IDENT ASSIGNMENT STRING
