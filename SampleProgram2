@@ -25,7 +25,7 @@ INT SendNumber(answer) {
 
 random_number = CALLR FetchRandomNumber()
 
-IF (SendNumber(random_number) == 1) {
+IF (CALLR SendNumber(random_number) == 1) {
     SWITCH 0 ON
 }
 ELSE {
