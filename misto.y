@@ -22,22 +22,22 @@ statements: /* empty */
           | error NEWLINE { printf(" in line %d!\n", lineno);
                             yyerrok; 
                           }
-statement: assign | logic_expr | expr | comment | for_stmt
+statement: assign | logic_expr | comment | for_stmt | connect | send_value | switches |
 
 assign: IDENT ASSIGNMENT expr | IDENT ASSIGNMENT STRING
-factor: LP expr RP | IDENT | INT |/* return_func_call |*/ timer | receive_value | get_sensor | FLOAT
-void_func_declr: RETURN_TYPE ident LP parameters RP LEFT_BRACES NEWLINE RIGHT_BRACES | RETURN_TYPE ident LP RP LEFT_BRACES func_stmts RIGHT_BRACES
-return_func_call: RETURN_TYPE ident LP parameters RP LEFT_BRACES func_stmts RETURN expr RIGHT_BRACES | RETURN_TYPE ident LP RP LEFT_BRACES func_stmts RETURN expr RIGHT_BRACES | RETURN_TYPE ident LP parameters RP LEFT_BRACES func_stmts RETURN STRING RIGHT_BRACES | RETURN_TYPE ident LP RP LEFT_BRACES func_stmts RETURN STRING RIGHT_BRACES
+factor: LP expr RP | IDENT | INT | return_func_call | timer | receive_value | get_sensor | FLOAT | 
+void_func_declr: RETURN_TYPE ident LP parameters RP LEFT_BRACES statements RIGHT_BRACES | RETURN_TYPE ident LP RP LEFT_BRACES func_stmts RIGHT_BRACES
+return_func_call: RETURN_TYPE ident LP parameters RP LEFT_BRACES statements RETURN expr RIGHT_BRACES | RETURN_TYPE ident LP RP LEFT_BRACES statements RETURN expr RIGHT_BRACES | RETURN_TYPE ident LP parameters RP LEFT_BRACES statements RETURN STRING RIGHT_BRACES | RETURN_TYPE ident LP RP LEFT_BRACES statements RETURN STRING RIGHT_BRACES
 void_func_call: VOID_FUNC_CALL ident LP parameters RP | VOID_FUNC_CALL ident LP RP
 return_func_call: RETURN_FUNC_CALL ident LP parametes RP | RETURN_FUNC_CALL ident LP RP
 or_expr: and_expr | or_expr LOGICAL_OR and_expr
 and_expr: logic_expr | and_expr LOGICAL_AND logic_expr
-if_stmt: IF LP logic_expr RP LEFT_BRACES func_stmts RIGHT_BRACES IF_END | IF LP logic_expr RP LEFT_BRACES statements RIGHT_BRACES ELSE LEFT_BRACES func_stmts RIGHT_BRACES
-while_stmt: WHILE LP logic_expr RP LEFT_BRACES func_stmts RIGHT_BRACES
+if_stmt: IF LP or_expr RP LEFT_BRACES statements RIGHT_BRACES IF_END | IF LP logic_expr RP LEFT_BRACES statements RIGHT_BRACES ELSE LEFT_BRACES func_stmts RIGHT_BRACES
+while_stmt: WHILE LP or_expr RP LEFT_BRACES statements RIGHT_BRACES
+for_stmt: FOR LP assign COLUMN or_expr COLUMN assign RP LEFT_BRACES statements RIGHT_BRACES
 term: factor | term MULT_OP factor | term DIV_OP factor
 expr: term | expr ADD_OP term | expr SUB_OP term
 logic_expr: expr EQUAL expr | expr GREATER_OR_EQ expr | expr GREATER_THAN expr | expr LESS_OR_EQ expr | expr LESS_THAN expr
-for_stmt: FOR LP assign COLUMN logic_expr COLUMN assign RP LEFT_BRACES NEWLINE assign NEWLINE RIGHT_BRACES
 get_sensor: SENSOR_CALL LP TEMPERATURE_VAL RP | SENSOR_CALL LP HUMIDITY_VAL RP | SENSOR_CALL LP PRESSURE_VAL RP | SENSOR_CALL LP QUALITY_VAL RP | SENSOR_CALL LP LIGHT_VAL RP | SENSOR_CALL LP SOUNDLEVEL_VAL COMMA expr RP
 timer: TIMER_FUNC LP RP
 switches: SWITCH expr ON | SWITCH expr OFF
