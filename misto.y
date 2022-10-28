@@ -26,13 +26,13 @@ statement: assign | logic_expr | comment | for_stmt | connect | send_value | swi
 
 assign: IDENT ASSIGNMENT expr | IDENT ASSIGNMENT STRING
 factor: LP expr RP | IDENT | INT | return_func_call | timer | receive_value | get_sensor | FLOAT | 
-void_func_declr: RETURN_TYPE ident LP parameters RP LEFT_BRACES statements RIGHT_BRACES | RETURN_TYPE ident LP RP LEFT_BRACES func_stmts RIGHT_BRACES
-return_func_call: RETURN_TYPE ident LP parameters RP LEFT_BRACES statements RETURN expr RIGHT_BRACES | RETURN_TYPE ident LP RP LEFT_BRACES statements RETURN expr RIGHT_BRACES | RETURN_TYPE ident LP parameters RP LEFT_BRACES statements RETURN STRING RIGHT_BRACES | RETURN_TYPE ident LP RP LEFT_BRACES statements RETURN STRING RIGHT_BRACES
-void_func_call: VOID_FUNC_CALL ident LP parameters RP | VOID_FUNC_CALL ident LP RP
-return_func_call: RETURN_FUNC_CALL ident LP parametes RP | RETURN_FUNC_CALL ident LP RP
+void_func_declr: RETURN_TYPE IDENT LP parameters RP LEFT_BRACES statements RIGHT_BRACES | RETURN_TYPE IDENT LP RP LEFT_BRACES statements RIGHT_BRACES
+return_func_call: RETURN_TYPE IDENT LP parameters RP LEFT_BRACES statements RETURN expr RIGHT_BRACES | RETURN_TYPE IDENT LP RP LEFT_BRACES statements RETURN expr RIGHT_BRACES | RETURN_TYPE ident LP parameters RP LEFT_BRACES statements RETURN STRING RIGHT_BRACES | RETURN_TYPE ident LP RP LEFT_BRACES statements RETURN STRING RIGHT_BRACES
+void_func_call: VOID_FUNC_CALL IDENT LP parameters RP | VOID_FUNC_CALL IDENT LP RP
+return_func_call: RETURN_FUNC_CALL IDENT LP parameters RP | RETURN_FUNC_CALL IDENT LP RP
 or_expr: and_expr | or_expr LOGICAL_OR and_expr
 and_expr: logic_expr | and_expr LOGICAL_AND logic_expr
-if_stmt: IF LP or_expr RP LEFT_BRACES statements RIGHT_BRACES IF_END | IF LP logic_expr RP LEFT_BRACES statements RIGHT_BRACES ELSE LEFT_BRACES func_stmts RIGHT_BRACES
+if_stmt: IF LP or_expr RP LEFT_BRACES statements RIGHT_BRACES IF_END | IF LP logic_expr RP LEFT_BRACES statements RIGHT_BRACES ELSE LEFT_BRACES statements RIGHT_BRACES
 while_stmt: WHILE LP or_expr RP LEFT_BRACES statements RIGHT_BRACES
 for_stmt: FOR LP assign COLUMN or_expr COLUMN assign RP LEFT_BRACES statements RIGHT_BRACES
 term: factor | term MULT_OP factor | term DIV_OP factor
