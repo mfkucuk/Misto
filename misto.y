@@ -22,12 +22,11 @@ statements: /* empty */
           | error NEWLINE { printf(" in line %d!\n", lineno);
                             yyerrok; 
                           }
-statement: assign | logic_expr | comment | for_stmt | connect | send_value | switches |
-
+statement: assign | or_expr | comment | for_stmt | while_stmt | if_stmt | connect | send_value | switches | void_func_declr | void_func_call | return_func_declr | return_func_call
 assign: IDENT ASSIGNMENT expr | IDENT ASSIGNMENT STRING
 factor: LP expr RP | IDENT | INT | return_func_call | timer | receive_value | get_sensor | FLOAT | 
 void_func_declr: RETURN_TYPE IDENT LP parameters RP LEFT_BRACES statements RIGHT_BRACES | RETURN_TYPE IDENT LP RP LEFT_BRACES statements RIGHT_BRACES
-return_func_call: RETURN_TYPE IDENT LP parameters RP LEFT_BRACES statements RETURN expr RIGHT_BRACES | RETURN_TYPE IDENT LP RP LEFT_BRACES statements RETURN expr RIGHT_BRACES | RETURN_TYPE IDENT LP parameters RP LEFT_BRACES statements RETURN STRING RIGHT_BRACES | RETURN_TYPE IDENT LP RP LEFT_BRACES statements RETURN STRING RIGHT_BRACES
+return_func_declr: RETURN_TYPE IDENT LP parameters RP LEFT_BRACES statements RETURN expr RIGHT_BRACES | RETURN_TYPE IDENT LP RP LEFT_BRACES statements RETURN expr RIGHT_BRACES | RETURN_TYPE IDENT LP parameters RP LEFT_BRACES statements RETURN STRING RIGHT_BRACES | RETURN_TYPE IDENT LP RP LEFT_BRACES statements RETURN STRING RIGHT_BRACES
 void_func_call: VOID_FUNC_CALL IDENT LP parameters RP | VOID_FUNC_CALL IDENT LP RP
 return_func_call: RETURN_FUNC_CALL IDENT LP parameters RP | RETURN_FUNC_CALL IDENT LP RP
 or_expr: and_expr | or_expr LOGICAL_OR and_expr
